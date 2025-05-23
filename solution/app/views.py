@@ -5,16 +5,21 @@ from app.crud import create_demand,create_state,change_state
 
 @app.route('/demand', methods=['POST'])
 def create_demand_view():
-    data = request.json
-    create_demand(data)
-    return {'message': 'Demand created'}, 201
-
+    try:
+        data = request.json
+        create_demand(data)
+        return {'message': 'Demand created'}, 201
+    except Exception as e:
+        return {'message':f'{e.str()}'},404
 
 @app.route('/state', methods=['POST'])
 def create_state_view():
-    data = request.json
-    create_state(data)
-    return {'message': 'State created'}, 201
+    try:
+        data = request.json
+        create_state(data)
+        return {'message': 'State created'}, 201
+    except Exception as e:
+        return {'message':f'{e.str()}'},404
 
 @app.route('/state/<state_id>/end',methods=["PATCH"])
 def change_state_view(state_id):
